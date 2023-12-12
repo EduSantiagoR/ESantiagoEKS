@@ -1,0 +1,61 @@
+﻿@model ML.Usuario
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Registro de nuevo usuario</h2>
+<hr />
+<div>
+    @using (Html.BeginForm("Form", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(model => model.IdUsuario)
+        <div class="row mb-3">
+            <div class="col col-4">
+                <label>Nombre</label>
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @placeholder = "Nombre" })
+            </div>
+            <div class="col col-4">
+                <label>Apellido paterno</label>
+                @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @placeholder = "Apellido paterno" })
+            </div>
+            <div class="col col-4">
+                <label>Apellido materno</label>
+                @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control", @placeholder = "Apellido materno" })
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col col-4">
+                <label>Email</label>
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email" })
+            </div>
+            <div class="col col-4">
+                <label>Password</label>
+                @Html.TextBoxFor(model => model.PasswordString, new { @class = "form-control", @onkeyup = "ValidarPassword()", @id="password1", @placeholder = "Password", @type = "password" })
+            </div>
+            <div class="col col-4">
+                <label>Confirmar password</label>
+                <input id="password2" onkeyup="ValidarPassword()" class="form-control" type="password" placeholder="Password" />
+            </div>
+        </div>
+        <div>
+            <button id="btnGuardar" disabled type="submit" class="btn btn-success">Guardar</button>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    function ValidarPassword() {
+        var password1 = document.getElementById('password1').value;
+        var password2 = document.getElementById('password2').value;
+        if (password2 != "") {
+            if (password1 != password2) {
+                document.getElementById('password2').setAttribute('style', 'border-color:red');
+                document.getElementById('btnGuardar').setAttribute('disabled', 'true');
+            }
+            else {
+                document.getElementById('password2').setAttribute('style', 'border-color:green');
+                document.getElementById('btnGuardar').removeAttribute('disabled');
+            }
+        }
+    }
+</script>

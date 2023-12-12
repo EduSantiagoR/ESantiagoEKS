@@ -1,0 +1,38 @@
+﻿@model ML.Producto
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Formulario de producto</h2>
+<hr />
+<div>
+    @using (Html.BeginForm("Form", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(model => model.IdProducto)
+        <div class="row mb-3">
+            <div class="col col-4">
+                <label>Nombre</label>
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @placeholder = "Nombre" })
+            </div>
+            <div class="col col-4">
+                <label>Descripción</label>
+                @Html.TextBoxFor(model => model.Descripcion, new { @class = "form-control", @placeholder = "Descripción" })
+            </div>
+            <div class="col col-4">
+                <label>Costo</label>
+                @Html.TextBoxFor(model => model.Costo, new { @class = "form-control", @placeholder = "Nombre" })
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col col-4">
+                <label>Marca</label>
+                @Html.DropDownListFor(model=>model.Marca.IdMarca, new SelectList(Model.Marca.Marcas, "IdMarca", "Nombre"), "Selecciona una marca", new { @class="form-control"})
+            </div>
+        </div>
+        <div>
+            <a class="btn btn-danger" href="@Url.Action("GetAll","Producto")">Volver</a>
+            <button class="btn btn-success" type="submit">Guardar</button>
+        </div>
+    }
+</div>
